@@ -1,12 +1,13 @@
 class Vehicle:
-    def __init__(self, id, type, zipCode):
+    def __init__(self, id, type, zipcode):
         self.id = id
         self.type = type
-        self.zipCode = zipCode
+        self.vehicleZipCode = zipcode
+        self.distance = 0
         self.available = True
 
     def __repr__(self):
-        return ("ID: " + str(self.id) + ' ' + "Type: " + str(self.type) + ' ' + "Zipcode: " + self.zipCode)
+        return ("ID: " + str(self.id) + ' ' + "Type: " + str(self.type) + ' ' + "Zipcode: " + self.vehicleZipCode + " Distance: " + str(self.distance))
 
 
 def vehicleArray():

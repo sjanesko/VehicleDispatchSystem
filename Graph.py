@@ -4,14 +4,12 @@ import math
 
 class Vertex:
     def __init__(self, node):
-        self.zipcode = node
+        self.zipCode = node
         self.adjacent = {}
-        self.visited = False
         self.distance = math.inf
-        self.previous = None
 
     def __repr__(self):
-        return str(self.zipcode) + ' adjacent: ' + str([x.zipcode for x in self.adjacent])
+        return str(self.zipCode) + ' adjacent: ' + str([x.zipCode for x in self.adjacent])
 
     def addAdjacentVertex(self, node, weight):
         self.adjacent[node] = weight
@@ -19,17 +17,8 @@ class Vertex:
     def getAdjNodes(self):
         return self.adjacent.keys()
 
-    def getZipcode(self):
-        return self.getZipcode
-
     def getWeight(self, node):
         return self.adjacent[node]
-
-    def setPrev(self, current):
-        self.previous = current
-
-    def getPrev(self, current):
-        return self.previous
 
 
 class Graph:
@@ -61,8 +50,29 @@ class Graph:
 
     def resetGraph(self):
         for vert in self.vertDict:
-            vert.visited = False
-            vert.distance = math.inf
+            self.vertDict[vert].distance = math.inf
+
+    def dijkstra(self, source):
+        # Throw error if invalid start node
+        assert source in self.vertDict, "Node doesn't exist"
+
+        # Reset graphs distance etc and initialize source node
+        self.resetGraph()
+        self.vertDict[source].distance = 0
+
+        # set of Nodes
+        unvisited = set(self.vertDict)
+
+        while unvisited:
+            # Finds the smallest distance unvisited node
+            currentVert = min(unvisited, key=lambda vert: self.vertDict[vert].distance)
+            unvisited.remove(currentVert)
+            # Each neighbor of currentVert
+            for vert in self.vertDict[currentVert].adjacent:
+                tempDist = self.vertDict[currentVert].distance + \
+                    self.vertDict[currentVert].getWeight(vert)
+                if tempDist < vert.distance:
+                    vert.distance = tempDist
 
     def fillGraph(self):
         '''Hard coded zipCode graph'''
@@ -154,8 +164,6 @@ class Graph:
         self.addEdge('67312', '67313', 5)
         self.addEdge('67313', '67314', 10)
         self.addEdge('67314', '67315', 11)
-
-        # print(self.vertDict['test'].getAdjNodes())
 
 
 if __name__ == '__main__':
