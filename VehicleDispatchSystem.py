@@ -32,11 +32,14 @@ vehicleArr = Vehicles.vehicleArray()
 # Gets array of requests
 requestsArr = VRequests.reqArr()
 
-# Iterate through all requests
+# Iterate through all requests(requests are in order of call time (ID))
 for r in requestsArr:
 
     # Retrieves vehicles and their distances from the zipcode
     availableVehiclesArr = findVehicles(r.type, r.reqZipCode, g)
+
+    # Make vehicle unavailable
+    availableVehiclesArr[0].available = False
 
     # First index will be the min result since array is sorted
     r.vehicleID = availableVehiclesArr[0].id
