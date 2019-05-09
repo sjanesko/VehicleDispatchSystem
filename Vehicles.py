@@ -3,6 +3,7 @@ class Vehicle:
         self.id = id
         self.type = type
         self.zipCode = zipCode
+        self.available = True
 
     def __repr__(self):
         return ("ID: " + str(self.id) + ' ' + "Type: " + str(self.type) + ' ' + "Zipcode: " + self.zipCode)
